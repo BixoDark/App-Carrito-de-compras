@@ -1,4 +1,4 @@
-# Proyecto Final Módulo 3: Simulador de Tienda Digital Ferretera
+# Simulador de Tienda Digital Ferretera con carrito de compras
 
 ## Descripción del Proyecto
 
