@@ -2,6 +2,7 @@
 // Datos de la aplicación
 // ===============================
 
+//inventario de productos a la venta
 const inventario = [
     { id: 1, nombre: "Taladro", precio: 40000, stock: 10 },
     { id: 2, nombre: "Alicate", precio: 5000, stock: 5 },
@@ -21,6 +22,7 @@ const inventario = [
 // Constantes
 // ===============================
 
+//Menu principal despegable.
 const menu = (`Bienvenido a la tienda digital Ferretera.
         Para continuar ingrese un número de las siguientes opciones:
             1. Ingresar productos al carrito de compras.
@@ -55,7 +57,7 @@ function buscarProducto(idProducto, inventario) {
 
 }
 
-
+//eliminamos el producto del carro ingresando el id
 function quitarDelCarrito(idProducto, carrito) {
     const indice = carrito.findIndex(item => item.id === idProducto);
 
@@ -83,12 +85,13 @@ function agregarAlCarrito(idProducto, carrito, inventario) {
     return true;
 }
 
+//devuelve el resultado final, usando las funciones aplicarDescuento y calculoTotal
 function calculoTotalFinal(carrito, descuento) {
     const subTotal = calcularSubTotal(carrito);
     const total = aplicarDescuento(subTotal, descuento);
     return { subTotal, total };
 }
-
+// aplica el descuento, segun el cupon usado por el usuario
 function aplicarDescuento(total, descuento) {
     return total - (total * descuento / 100);
 }
@@ -100,6 +103,7 @@ function calcularSubTotal(carrito) {
     }, 0);
 }
 
+//se utiliza un swich para comprobar si el cupon ingresado esta en la lista.
 function validarCupon(cupon) {
     switch (cupon) {
         case "primeracompra":
@@ -138,7 +142,7 @@ function iniciarAplicacion() {
         const opcion = Number(prompt(menu));
 
         switch (opcion) {
-            case 1:
+            case 1: {
                 let listaDeProducto = mostrarProducto(inventario, true);//Al enviar true permito, a la funcion llamada, filtrar los articulos que no tengan stock, para no mostrarlos en pantalla.
                 let id = Number(prompt("Ingrese el id del producto que quiera agregar al carro\n" + listaDeProducto));
                 if (!isNaN(id)) {
@@ -153,8 +157,8 @@ function iniciarAplicacion() {
                 }
 
                 break;
-
-            case 2:
+            }
+            case 2: {
                 if (carritoDeCompras.length === 0) {
                     alert("Su carrito de compras está vacío.");
                     break;
@@ -180,8 +184,8 @@ function iniciarAplicacion() {
                     alert("El producto no se encuentra en el carrito.");
                 }
                 break;
-
-            case 3:
+            }
+            case 3: {
                 presupuesto = Number(prompt("Ingrese su presupuesto de compras."));
                 if (!isNaN(presupuesto)) {
                     alert("Su presupuesto ha sido agregado exitosamente.");
@@ -190,8 +194,8 @@ function iniciarAplicacion() {
                     presupuesto = 0;
                 }
                 break;
-
-            case 4:
+            }
+            case 4: {
                 const compra = calculoTotalFinal(carritoDeCompras, descuento);
 
                 alert(`Los artículos de su carrito son:\n${mostrarProducto(carritoDeCompras)}
@@ -200,8 +204,8 @@ function iniciarAplicacion() {
                 Total: $${compra.total.toLocaleString("es-CL")}.`);
 
                 break;
-
-            case 5:
+            }
+            case 5: {
                 let cupon = prompt("Ingrese un cupón de descuento.");
                 let valorDescuento = 0;
 
@@ -217,8 +221,8 @@ function iniciarAplicacion() {
                 }
 
                 break;
-
-            case 6:
+            }
+            case 6: {
                 const cuentaTotal = calculoTotalFinal(carritoDeCompras, descuento);
                 let confirmacionDeCompra = prompt(`Su cuenta a pagar es:
                     Subtotal: $ ${cuentaTotal.subTotal.toLocaleString("es-CL")}
@@ -239,17 +243,18 @@ function iniciarAplicacion() {
                     alert("Transacción no realizada, continúe utilizando la plataforma.");
                 }
                 break;
-
-
-            case 7:
+            }
+            case 7: {
                 alert("Gracias por su visita, Vuelva pronto.");
                 console.log("Programa finalizado");
                 continuar = false;
                 break;
+            }
 
-            default:
+            default: {
                 alert("Opción no válida, reintente nuevamente.");
                 console.log("El usuario ingresó una opción no válida.");
+            }
         }
     }
 }
